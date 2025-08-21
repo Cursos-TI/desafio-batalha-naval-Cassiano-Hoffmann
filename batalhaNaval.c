@@ -4,7 +4,6 @@
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
-int main() {
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
     // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
@@ -35,6 +34,54 @@ int main() {
     // 0 0 1 0 0
     // 1 1 1 1 1
     // 0 0 1 0 0
+
+#define TAM 10      // tamanho do tabuleiro (10x10)
+#define NAVIO 3     // valor que representa o navio
+#define AGUA 0      // valor que representa água
+#define TAM_NAVIO 3 // tamanho fixo dos navios
+
+int main() {
+    // Declaração do tabuleiro
+    int tabuleiro[TAM][TAM];
+
+    // Inicializa todas as posições com 0 (água)
+    for (int i = 0; i < TAM; i++) {
+        for (int j = 0; j < TAM; j++) {
+            tabuleiro[i][j] = AGUA;
+        }
+    }
+
+    // Definindo coordenadas iniciais dos navios
+    // Exemplo fixo (pode alterar para testar)
+    int linhaNavioVertical = 1, colunaNavioVertical = 2; // posição inicial do navio vertical
+    int linhaNavioHorizontal = 5, colunaNavioHorizontal = 4; // posição inicial do navio horizontal
+
+    // Validação simples para não ultrapassar o limite do tabuleiro
+    if (linhaNavioVertical + TAM_NAVIO <= TAM) {
+        // Posiciona navio vertical
+        for (int i = 0; i < TAM_NAVIO; i++) {
+            tabuleiro[linhaNavioVertical + i][colunaNavioVertical] = NAVIO;
+        }
+    }
+
+    if (colunaNavioHorizontal + TAM_NAVIO <= TAM) {
+        // Posiciona navio horizontal
+        for (int i = 0; i < TAM_NAVIO; i++) {
+            // Verifica se não há sobreposição
+            if (tabuleiro[linhaNavioHorizontal][colunaNavioHorizontal + i] == AGUA) {
+                tabuleiro[linhaNavioHorizontal][colunaNavioHorizontal + i] = NAVIO;
+            }
+        }
+    }
+
+    // Exibe o tabuleiro
+    printf("=== TABULEIRO BATALHA NAVAL ===\n");
+    for (int i = 0; i < TAM; i++) {
+        for (int j = 0; j < TAM; j++) {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }
